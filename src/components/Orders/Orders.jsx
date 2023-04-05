@@ -9,12 +9,17 @@ const Orders = () => {
     const savedCart = useLoaderData()
     const [cart, setCart] = useState(savedCart)
     // console.log(savedCart)
-  const handleRemoveFromCart = (id) => {
+  
+    const handleRemoveFromCart = (id) => {
     // console.log(id);
     const remaining = cart.filter(product => product.id !== id)
     setCart(remaining);
     removeFromDb(id)
   }
+
+    const handleClearCart = () => {
+      setCart([])
+    }
 
   return (
     <div className="shop-container">
@@ -29,7 +34,10 @@ const Orders = () => {
         }
       </div>
       <div className="cart-container">
-            <Cart cart={cart}></Cart>
+            <Cart 
+              cart={cart}
+              handleClearCart={handleClearCart}
+            ></Cart>
       </div>
     </div>
   );

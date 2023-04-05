@@ -1,4 +1,17 @@
-.review-container{
-    margin: 50px auto;
+.review-container {
+  margin: 50px auto;
+}
 
+.btn-proceed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 56px;
+  font-size: 15px;
+  margin: 10px auto;
+  background: #ff9900;
+  border-radius: 4px;
+  color: white;
+  border-color: white;
 }

@@ -6,7 +6,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 // const Cart = (props) => {
     // const cart = props.cart; //option 1 for using cart in other component
     // const {cart} = props; //option 2
-    const Cart = ({cart,handleClearCart}) => { //option 3
+    const Cart = ({cart,handleClearCart,children}) => { //option 3
 
 // console.log(cart)
  
@@ -46,6 +46,7 @@ const grandTotal = totalPrice + totalShipping + tax;
         <span >Clear Cart</span>
       <FontAwesomeIcon icon={faTrashAlt} />
       </button>
+      {children}
     </div>
   );
 };

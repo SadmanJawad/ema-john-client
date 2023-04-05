@@ -19,21 +19,21 @@ const Shop = () => {
     const storedCart = getShoppingCart();
     const savedCart = [];
 
-    // step 1 : get id of the storedCart
+// step 1 : get id of the storedCart
     for (const id in storedCart) {
-      // step :2 get product from products state by using id
+// step :2 get product from products state by using id
       const addedProduct = products.find((product) => product.id === id);
       if (addedProduct) {
-        //   step : 3 get quantity of the product
+//   step : 3 get quantity of the product
         const quantity = storedCart[id];
         addedProduct.quantity = quantity;
-        // step : 4 add the addedProduct to the savedCart
+// step : 4 add the addedProduct to the savedCart
         savedCart.push(addedProduct);
         console.log(addedProduct);
       }
       // console.log("added prod", addedProduct);
     }
-    // step : 5 set the cart
+// step : 5 set the cart
     setCart(savedCart);
   }, [products]);
 
@@ -41,7 +41,7 @@ const Shop = () => {
     // cart.push(product);
     // const newCart = [...cart, product];
 
-    // *hard technique ( Cart.jsx :17)
+// *hard technique of ( Cart.jsx :17)
     // if product doesn't exist in the cart , then set quantity = 1, if exist update quantity by 1
     let newCart = [];
     const exists = cart.find(pd => pd.id === product.id);
@@ -56,7 +56,7 @@ const Shop = () => {
     }
 
     setCart(newCart);
-    //! add cart data to LocalStorage (51-4)
+//! add cart data to LocalStorage (51-4)
     addToDb(product.id);
   };
 

@@ -5,7 +5,7 @@ import "./Cart.css";
     // const {cart} = props; //option 2
     const Cart = ({cart}) => { //option 3
 
-console.log(cart)
+// console.log(cart)
  
 let totalPrice = 0;
 let totalShipping = 0;
@@ -16,9 +16,9 @@ for (const product of cart){
 
   //! technique for selected quantity get 0,after reload but stored in localStorage
   // * easy technique
-  // if(product.quantity === 0){
-  //   product.quantity = 1
-  // }
+  /* if(product.quantity === 0){
+    product.quantity = 1
+  } */
   //* shortcut technique
   // product.quantity = product.quantity || 1;
 

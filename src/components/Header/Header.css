@@ -15,3 +15,7 @@ nav.header a{
 nav.header a:hover{
     color: orange;
 }
+.welcome-text{
+    color: white;
+    padding-left: 10px;
+}

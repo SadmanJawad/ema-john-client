@@ -11,8 +11,24 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const { totalProducts } = useLoaderData();
+  
+  const itemsPerPage = 10;  //TODO: make it dynamic
+  const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
+    // const pageNumbers = [];
+    // for (let i = 1; i <= totalPages; i++) {
+    //     pageNumbers.push(i);
+    // }
 
+  const pageNumbers = [...Array(totalPages).keys()];
+
+  console.log(totalProducts);
+    /**
+     * Done: 1. Determine the total number of items: 
+     * TODO: 2. Decide on the number of items per page: 
+     * DONE: 3. Calculate the total number of pages: 
+     * 
+    */
 
 
   useEffect(() => {
@@ -74,6 +90,7 @@ const Shop = () => {
 
 
   return (
+   <>
     <div className="shop-container">
       <div className="products-container">
         {products.map((product) => (
@@ -98,6 +115,12 @@ const Shop = () => {
         </Cart>
       </div>
     </div>
+    {/* Pagination */}
+    <div className="pagination"></div>
+          {
+            pageNumbers.map(number => <button key={number}> {number}</button>)
+          }
+   </>
   );
 };
 

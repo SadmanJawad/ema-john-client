@@ -3,13 +3,17 @@ import { addToDb, getShoppingCart } from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const { totalProducts } = useLoaderData();
+
+
+
 
   useEffect(() => {
     fetch("http://localhost:5000/products")

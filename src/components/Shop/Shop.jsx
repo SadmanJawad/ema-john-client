@@ -39,36 +39,48 @@ const Shop = () => {
 
   useEffect(() => {
     async function fetchData() {
-        const response = await fetch(`http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`);
+      const response = await fetch(
+        `http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`
+      );
 
-        const data = await response.json();
-        setProducts(data);
+      const data = await response.json();
+      setProducts(data);
     }
     fetchData();
-}, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
     // console.log("products", products);
     const storedCart = getShoppingCart();
-    const savedCart = [];
-
-    // step 1 : get id of the storedCart
-    for (const id in storedCart) {
-      // step :2 get product from products state by using id
-      const addedProduct = products.find((product) => product._id === id);
-      if (addedProduct) {
-        //   step : 3 get quantity of the product
-        const quantity = storedCart[id];
-        addedProduct.quantity = quantity;
-        // step : 4 add the addedProduct to the savedCart
-        savedCart.push(addedProduct);
-        console.log(addedProduct);
-      }
-      // console.log("added prod", addedProduct);
-    }
-    // step : 5 set the cart
-    setCart(savedCart);
-  }, [products]);
+    const ids = Object.keys(storedCart);
+    fetch(`http://localhost:5000/productsByIds`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(ids),
+    })
+      .then((res) => res.json())
+      .then((cartProducts) => {
+        const savedCart = [];
+        // step 1 : get id of the storedCart
+        for (const id in storedCart) {
+          // step :2 get product from products state by using id
+          const addedProduct = cartProducts.find((product) => product._id === id);
+          if (addedProduct) {
+            //   step : 3 get quantity of the product
+            const quantity = storedCart[id];
+            addedProduct.quantity = quantity;
+            // step : 4 add the addedProduct to the savedCart
+            savedCart.push(addedProduct);
+            console.log(addedProduct);
+          }
+          // console.log("added prod", addedProduct);
+        }
+        // step : 5 set the cart
+        setCart(savedCart);
+      });
+  }, []);
 
   const handleAddToCart = (product) => {
     // cart.push(product);
@@ -99,8 +111,8 @@ const Shop = () => {
 
   const options = [5, 10, 15, 20];
   function handleSelectChange(event) {
-      setItemsPerPage(parseInt(event.target.value));
-      setCurrentPage(0);
+    setItemsPerPage(parseInt(event.target.value));
+    setCurrentPage(0);
   }
 
   return (
@@ -128,12 +140,16 @@ const Shop = () => {
       </div>
       {/* Pagination */}
       <div className="pagination">
-        <p>Current Page: {currentPage} <br />Items Per Page: {itemsPerPage}</p>
+        <p>
+          Current Page: {currentPage} <br />
+          Items Per Page: {itemsPerPage}
+        </p>
         {pageNumbers.map((number) => (
-          <button 
-          key={number}
-          className={currentPage===number ? 'selected' : ''}
-           onClick={() => setCurrentPage(number)}>
+          <button
+            key={number}
+            className={currentPage === number ? "selected" : ""}
+            onClick={() => setCurrentPage(number)}
+          >
             {number}
           </button>
         ))}
